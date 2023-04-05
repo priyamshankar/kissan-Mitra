@@ -6,7 +6,13 @@ export default function ZameenCard(props) {
         <div className='zameen-container'>
             <div id='location'>
                 <div>
-                    <h3>Location</h3>
+
+                        <img 
+                            alt='locationIcon' 
+                            width="48px" 
+                            src='https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_nearby-4096.png'>
+                        </img>
+
                 </div>
                 <div>
                     <p>Near chapa kal</p>
