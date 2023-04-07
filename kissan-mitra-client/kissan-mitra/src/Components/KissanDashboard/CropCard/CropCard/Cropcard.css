@@ -1,0 +1,28 @@
+.cropCard-container {
+  font-family: "Montserrat", sans-serif;
+  width: 30vw;
+  border-style: solid;
+  border-radius: 2%;
+  border-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.cropCard-container .headingcropcard {
+  font-weight: 600px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+}
+.cropCard-container .headingcropcard .cropcard-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+.cropCard-container .cropcard-details {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid yellow;
+}/*# sourceMappingURL=Cropcard.css.map */
