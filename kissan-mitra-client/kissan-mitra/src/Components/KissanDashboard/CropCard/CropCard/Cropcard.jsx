@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import CropPage from "../CropPage/CropPage";
 import "./Cropcard.css";
 
 const cropData = [
@@ -25,6 +26,8 @@ const cropData = [
 ];
 
 const Cropcard = () => {
+  const [crppagePopup, setcrppagePopup] = useState(null);
+
   const [landArea, setlandArea] = useState([
     {
       cropType: "rice",
@@ -66,21 +69,36 @@ const Cropcard = () => {
   // }, []);
 
   return (
-    <div className="cropCard-container">
-      <div className="headingcropcard">
-        <div>Total Crops types and yields</div>
+    <>
+      {crppagePopup && (
+        <CropPage
+          setcrppagePopup={setcrppagePopup}
+          crppagePopup={crppagePopup}
+        />
+      )}
+      <div className="cropCard-container">
+        <div className="headingcropcard">
+          <div>Cropwise Yield</div>
+        </div>
+        <div className="cropcard-details-container">
+          {landArea.map((data, index) => {
+            return (
+              <div
+                className="cropcard-details"
+                onClick={() => {
+                  setcrppagePopup(data.cropType);
+                }}
+                key={index}
+              >
+                <div className="cropname-corpcard">{data.cropType}</div>
+                <div className="totalarea-cropcard">{data.val} Acres</div>
+                <div className="circle"></div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div className="cropcard-details-container">
-        {landArea.map((data, index) => {
-          return (
-            <div className="cropcard-details" key={index}>
-              <div className="cropname-corpcard">{data.cropType}</div>
-              <div className="totalarea-cropcard">{data.val} Acres</div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    </>
   );
 };
 
