@@ -1,18 +1,29 @@
+#heading {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .mainContent {
 
     display: flex;
-    // justify-content: center;
     flex-direction: column;
     align-items: center;
     height: 100vh;
 
-    #intro {
 
-
-        
-    }
     #info-container {
 
         display: flex;
+        flex-wrap: wrap;
+
+        div {
+
+            :hover {
+                cursor:pointer;
+                background-color: RGB(20, 20, 20);
+                color: white;
+            }
+        }
     }
 }

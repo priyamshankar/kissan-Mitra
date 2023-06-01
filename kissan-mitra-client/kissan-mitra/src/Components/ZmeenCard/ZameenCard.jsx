@@ -7,11 +7,11 @@ export default function ZameenCard(props) {
             <div id='location'>
                 <div>
 
-                        <img 
-                            alt='locationIcon' 
-                            width="48px" 
-                            src='https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_nearby-4096.png'>
-                        </img>
+                    <img
+                        alt='locationIcon'
+                        width="48px"
+                        src='https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_nearby-4096.png'>
+                    </img>
 
                 </div>
                 <div>
