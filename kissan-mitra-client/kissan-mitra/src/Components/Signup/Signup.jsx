@@ -1,10 +1,62 @@
-import React from 'react';
+import React from "react";
 import "./Signup.css";
 
 const Signup = () => {
   return (
-    <div>Signup</div>
-  )
-}
+    <div className="Signuppage-container">
+      <div className="signuppage-gridleft">
+        {/* <img src="" alt="kissanImage" /> */}
+      </div>
+      <div className="signupPage-gridright">
+        <div className="signupInsidecontent">
+          <div className="signupFormHeader-signuppage">
+            <div>Register</div>
+            <span>
+              or <a href="#">create an account</a>
+            </span>
+          </div>
+          <div className="inputBoxes-signupPage">
+            <input
+              className="input-signuppage"
+              type="text"
+              placeholder="First Name"
+            />
+            <input
+              className="input-signuppage"
+              type="text"
+              placeholder="Last Name"
+            />
+            <input
+              className="input-signuppage grid-expand-signupPage"
+              type="text"
+              placeholder="Email"
+            />
+            <input
+              className="input-signuppage"
+              type="password"
+              placeholder="Password"
+            />
 
-export default Signup
+            <input
+              type="password"
+              className="input-signuppage"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div className="signupformbottom-signuppage">
+            <div className="checkboxsignuppage">
+              <input type="checkbox" name="remember" id="remembersignupPage" />
+              {/* <span>Remember me</span> */}
+              <label htmlFor="remembersignupPage">
+                I agree to the terms and condition
+              </label>
+            </div>
+            <button>Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;
