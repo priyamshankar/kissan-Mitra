@@ -10,7 +10,7 @@
   gap: 1rem;
 }
 .cropCard-container .headingcropcard {
-  font-weight: 600px;
+  font-weight: 600;
   font-size: 25px;
   display: flex;
   justify-content: center;
@@ -40,7 +40,7 @@
   position: absolute;
   right: 0px;
   top: 0;
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  background-image: linear-gradient(to top, rgb(235, 251, 241) 0%, rgb(192, 253, 215) 100%);
   border-bottom-left-radius: 170px;
 }
 .cropCard-container .cropcard-details-container .cropname-corpcard {
