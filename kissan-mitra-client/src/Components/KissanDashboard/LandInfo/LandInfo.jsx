@@ -66,7 +66,11 @@ export default function LandInfo() {
                 </div>
 
                 <div id='add-land'>
-                    <button >Add New Land</button>
+                    <a href="/newland">
+                        <button >
+                            Add New Land
+                        </button>
+                    </a> 
                 </div>
 
             </div>

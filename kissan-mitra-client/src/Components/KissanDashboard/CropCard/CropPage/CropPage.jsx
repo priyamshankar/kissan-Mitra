@@ -37,10 +37,17 @@ const CropPage = (props) => {
 
                 <div className="croppagecard-row1">
                   <span>{data.fieldName}</span>
-                <div className="circle">
-                  {data.area}
+                  <div className="circle">
+                    {data.area}
+                  </div>
                 </div>
-                </div>
+                Water Needed <br />
+                msrp <br />
+                stage <br />
+                storm alert <br />
+                weather <br />
+                field type <br />
+                description
               </div>
             );
           })}

@@ -3,6 +3,7 @@ import Dashboard from "./Components/KissanDashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import ZameenInfo from "./Components/ZameenInfo/ZameenInfo";
 import Signup from "./Components/Signup/Signup";
+import AddLand from "./Components/AddNewLand/AddLand";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/zameenInfo" element={<ZameenInfo/>}></Route>
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/newland" element={<AddLand/>}/>
         </Routes>
       </BrowserRouter>
     </>
