@@ -8,8 +8,14 @@ import {
 } from "@react-google-maps/api";
 
 const AddLand = () => {
-  const [markerLoc, setMarkerLoc] = useState(null);
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  useEffect(() => {
+    if (map && markerLoc) {
+      map.panTo(markerLoc);
+      map.setZoom(13);
+    }
+  }, [onPlaceChanged]);
+  const [markerLoc, setMarkerLoc] = useState(null);
   const [searchResult, setSearchResult] = useState("");
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
@@ -20,16 +26,9 @@ const AddLand = () => {
   if (!isLoaded) {
     return "Map is Loading";
   }
-//   useEffect(() => {
-//     map.panTo(markerLoc);
-
-//   }, [onPlaceChanged])
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
-    if(map || markerLoc)
-    map.panTo(markerLoc);
-
   }
   function onPlaceChanged() {
     if (searchResult != null) {
@@ -45,7 +44,7 @@ const AddLand = () => {
         lng: lng,
       });
     } else {
-      alert("Please enter text");
+      alert("Please Select from the list below.");
     }
   }
 
@@ -63,7 +62,7 @@ const AddLand = () => {
       </div>
       <GoogleMap
         center={{ lat: 26.846098, lng: 80.946 }}
-        zoom={15}
+        zoom={4}
         mapContainerStyle={{ width: "100%", height: "100%" }}
         onLoad={(map) => setMap(map)}
         onClick={(map) => {
@@ -81,16 +80,15 @@ const AddLand = () => {
         ) : (
           <>
             <MarkerF
+              position={markerLoc}
               onPositionChanged={(e) => {
-                // map.panTo(markerLoc);
+                console.log("inside pan");
                 console.log(markerLoc);
               }}
-              position={markerLoc}
             />
           </>
         )}
         {console.log(markerLoc)}
-
       </GoogleMap>
     </div>
   );
