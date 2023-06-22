@@ -12,7 +12,8 @@ const AddLand = () => {
   useEffect(() => {
     if (map && markerLoc) {
       map.panTo(markerLoc);
-      map.setZoom(13);
+      // console.log(setZ)
+      // map.setZoom(13);
     }
   }, [onPlaceChanged]);
   const [markerLoc, setMarkerLoc] = useState(null);
@@ -51,14 +52,75 @@ const AddLand = () => {
   return (
     <div className="addLand">
       <div className="addLandForm">
-        field type <br />
-        area map <br />
-        field name <br />
-        field description <br />
-        irrigation available or not
-        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-          <input type="text" placeholder="search for the location" />
-        </Autocomplete>
+        <h1>Add Your Field</h1>
+        <div className="h-rule">
+        <hr />
+        <span>.</span>
+        <hr />
+        </div>
+        <form action="">
+          <div>
+            <label htmlFor="fieldName-addland">Enter Name</label>
+            <input
+              id="fieldName-addland"
+              type="text"
+              placeholder="Enter the name of the Field"
+            />
+          </div>
+          <div>
+            <label htmlFor="area-addland">Area in Acres</label>
+            <input
+              type="number"
+              id="area-addland"
+              placeholder="Enter the area"
+            />
+          </div>
+          <div>
+            <label htmlFor="type-addfield">Field Type</label>
+            <input type="text" id="type-addfield" placeholder="Field Type" />
+          </div>
+          <div className="autocompleteInput">
+            <label htmlFor="location-addland">Location</label>
+            <Autocomplete
+              id="location-addland"
+              onPlaceChanged={onPlaceChanged}
+              onLoad={onLoad}
+            >
+              <input
+                type="text"
+                placeholder="Enter the Locality and select on the map."
+              />
+            </Autocomplete>
+          </div>
+          <div className="grid-row-desc">
+            <label htmlFor="discription-addland">Description</label>
+            <textarea
+              name="description-addland"
+              id="discription-addland"
+              cols="50"
+              rows="5"
+            ></textarea>
+          </div>
+          <div className="btns-addland">
+            <button
+              className="submit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              className="submit-btn"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Add Land
+            </button>
+          </div>
+        </form>
       </div>
       <GoogleMap
         center={{ lat: 26.846098, lng: 80.946 }}
