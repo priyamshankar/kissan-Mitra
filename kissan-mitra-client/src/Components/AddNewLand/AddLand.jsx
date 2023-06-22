@@ -53,35 +53,73 @@ const AddLand = () => {
     <div className="addLand">
       <div className="addLandForm">
         <h1>Add Your Field</h1>
+        <div className="h-rule">
+        <hr />
+        <span>.</span>
+        <hr />
+        </div>
         <form action="">
-          <label htmlFor="fieldName-addland">Enter Name</label>
-          <input
-            id="fieldName-addland"
-            type="text"
-            placeholder="Enter the name of the Field"
-          />
-          <label htmlFor="area-addland">Area in Acres</label>
-          <input type="text" id="area-addland" placeholder="Enter the area" />
-          <label htmlFor="type-addfield">Field Type</label>
-          <input type="text" id="type-addfield" placeholder="Field Type" />
-          <label htmlFor="location-addland">Location</label>
-          <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+          <div>
+            <label htmlFor="fieldName-addland">Enter Name</label>
             <input
+              id="fieldName-addland"
               type="text"
-              id="location-addland"
-              placeholder="Enter the Locality and select on the map."
+              placeholder="Enter the name of the Field"
             />
-          </Autocomplete>
-          <label htmlFor="discription-addland">Description</label>
-          <textarea
-            name="description-addland"
-            id="discription-addland"
-            cols="30"
-            rows="10"
-          ></textarea>
-          <button type="submit" onClick={(e)=>{
-            e.preventDefault();
-          }}>Add Land</button>
+          </div>
+          <div>
+            <label htmlFor="area-addland">Area in Acres</label>
+            <input
+              type="number"
+              id="area-addland"
+              placeholder="Enter the area"
+            />
+          </div>
+          <div>
+            <label htmlFor="type-addfield">Field Type</label>
+            <input type="text" id="type-addfield" placeholder="Field Type" />
+          </div>
+          <div className="autocompleteInput">
+            <label htmlFor="location-addland">Location</label>
+            <Autocomplete
+              id="location-addland"
+              onPlaceChanged={onPlaceChanged}
+              onLoad={onLoad}
+            >
+              <input
+                type="text"
+                placeholder="Enter the Locality and select on the map."
+              />
+            </Autocomplete>
+          </div>
+          <div className="grid-row-desc">
+            <label htmlFor="discription-addland">Description</label>
+            <textarea
+              name="description-addland"
+              id="discription-addland"
+              cols="50"
+              rows="5"
+            ></textarea>
+          </div>
+          <div className="btns-addland">
+            <button
+              className="submit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              className="submit-btn"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Add Land
+            </button>
+          </div>
         </form>
       </div>
       <GoogleMap
