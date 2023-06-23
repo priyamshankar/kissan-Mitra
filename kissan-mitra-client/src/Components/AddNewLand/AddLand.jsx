@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AddLand.css";
+import axios from "axios";
 import {
   Autocomplete,
   GoogleMap,
@@ -23,6 +24,11 @@ const AddLand = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY,
     libraries,
   });
+  // const [formData,setFormData] = useState({
+  //   firstName : '',
+  //   lastName : '',
+
+  // })
 
   if (!isLoaded) {
     return "Map is Loading";
@@ -48,6 +54,20 @@ const AddLand = () => {
       alert("Please Select from the list below.");
     }
   }
+
+
+  //DELETE THE BELOW COMMENT BEFORE PRODUCTION SINCE USELESS
+  // function createPost() {
+  //   axios
+  //     .post("http://localhost:5000/api/test", {
+  //       title: "Hello World!",
+  //       body: "This is a new post."
+  //     })
+  //     .then((res) => {
+  //       // setPost(response.data);
+  //       console.log(res.data);
+  //     });
+  // }
 
   return (
     <div className="addLand">
@@ -115,6 +135,7 @@ const AddLand = () => {
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
+                // createPost();
               }}
             >
               Add Land
