@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./AddLand.css";
 import axios from "axios";
+
+import Auth from "../../functinos/Auth";
+import { useNavigate } from 'react-router-dom';
+
 import {
   Autocomplete,
   GoogleMap,
@@ -17,6 +21,24 @@ const AddLand = () => {
       // map.setZoom(13);
     }
   }, [onPlaceChanged]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+
+    const fetch = async () => {
+      try {
+        const x = await Auth();
+        // console.log(x);
+        if(!x){
+          navigate("/login");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetch();
+  }, []);
+
   const [markerLoc, setMarkerLoc] = useState(null);
   const [searchResult, setSearchResult] = useState("");
   const [libraries] = useState(["places"]);
