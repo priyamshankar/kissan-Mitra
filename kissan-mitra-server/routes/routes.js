@@ -3,9 +3,8 @@ const router = new express.Router();
 const jwt = require("jsonwebtoken");
 require("../Databases/dbConnect");
 const userDetail = require("../Databases/kissanDetail");
+const landDetail = require("../Databases/landDetail");
 const bcrypt = require("bcryptjs");
-const cookieparser = require("cookie-parser");
-// router.use(cookieparser);
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
@@ -45,7 +44,6 @@ router.post("/api/login", async (req, res) => {
       );
       const jwtToken = await fetchedFromDb.generateAuthToken();
       if (pwMatch) {
-        console.log("true");
         res.send({
           loginMatched: true,
           jwt: jwtToken,
@@ -90,6 +88,24 @@ router.post("/api/authcheck", async (req, res) => {
     console.log(e);
   }
 });
+
+router.post("/api/addland",async(req,res)=>{
+  try{
+    let fetchedData = req.body;
+    const landDatadb = new landDetail({
+      user_id:fetchedData.user_id,
+      fieldName:fetchedData.fieldName[0],
+    landArea:fetchedData.landArea[0],
+    addfield:fetchedData.addfield[0],
+    location:fetchedData.location,
+    description:fetchedData.description[0],
+    });
+    await landDatadb.save();
+    res.send(landDatadb);
+  }catch(e){
+    console.log(e);
+  }
+})
 
 router.post("/api/test", async (req, res) => {
   try {
