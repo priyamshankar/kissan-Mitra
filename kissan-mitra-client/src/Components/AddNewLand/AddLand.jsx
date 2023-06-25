@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./AddLand.css";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+import Auth from "../../functinos/Auth";
+import { useNavigate } from 'react-router-dom';
+
 import {
   Autocomplete,
   GoogleMap,
@@ -10,25 +15,50 @@ import {
 
 const AddLand = () => {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  const [markerLoc, setMarkerLoc] = useState(null);
+
   useEffect(() => {
     if (map && markerLoc) {
       map.panTo(markerLoc);
-      // console.log(setZ)
       // map.setZoom(13);
     }
   }, [onPlaceChanged]);
-  const [markerLoc, setMarkerLoc] = useState(null);
+
+  useEffect(() => {
+    addLocationInhook();
+  }, [markerLoc])
+  
+
+  const navigate = useNavigate();
+  useEffect(() => {
+
+    const fetch = async () => {
+      try {
+        const x = await Auth();
+        if(!x){
+          navigate("/login");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetch();
+  }, []);
+
   const [searchResult, setSearchResult] = useState("");
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY,
     libraries,
   });
-  // const [formData,setFormData] = useState({
-  //   firstName : '',
-  //   lastName : '',
-
-  // })
+  const [formData,setFormData] = useState({
+    user_id: Cookies.get("id"),
+    fieldName:"",
+    landArea:"",
+    addfield:"",
+    location:"",
+    description:"",
+  })
 
   if (!isLoaded) {
     return "Map is Loading";
@@ -50,6 +80,7 @@ const AddLand = () => {
         lat: lat,
         lng: lng,
       });
+      map.setZoom(16);
     } else {
       alert("Please Select from the list below.");
     }
@@ -69,6 +100,20 @@ const AddLand = () => {
   //     });
   // }
 
+  function addLocationInhook(){
+    setFormData({...formData,location:markerLoc});
+  }
+
+  const handlechange = (e)=>{
+    setFormData({...formData,[e.target.name]:[e.target.value]});
+  }
+
+  const handlesubmit = ()=>{
+    axios.post("http://localhost:5000/api/addland",formData).then((res)=>{
+      navigate("/");
+    })
+  }
+
   return (
     <div className="addLand">
       <div className="addLandForm">
@@ -85,6 +130,8 @@ const AddLand = () => {
               id="fieldName-addland"
               type="text"
               placeholder="Enter the name of the Field"
+              name="fieldName"
+              onChange={handlechange}
             />
           </div>
           <div>
@@ -93,11 +140,13 @@ const AddLand = () => {
               type="number"
               id="area-addland"
               placeholder="Enter the area"
+              name="landArea"
+              onChange={handlechange}
             />
           </div>
           <div>
             <label htmlFor="type-addfield">Field Type</label>
-            <input type="text" id="type-addfield" placeholder="Field Type" />
+            <input type="text" id="type-addfield" placeholder="Field Type" name="addfield" onChange={handlechange}/>
           </div>
           <div className="autocompleteInput">
             <label htmlFor="location-addland">Location</label>
@@ -115,7 +164,8 @@ const AddLand = () => {
           <div className="grid-row-desc">
             <label htmlFor="discription-addland">Description</label>
             <textarea
-              name="description-addland"
+              name="description"
+              onChange={handlechange}
               id="discription-addland"
               cols="50"
               rows="5"
@@ -126,6 +176,7 @@ const AddLand = () => {
               className="submit-btn"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/");
               }}
             >
               Cancel
@@ -136,6 +187,7 @@ const AddLand = () => {
               onClick={(e) => {
                 e.preventDefault();
                 // createPost();
+                handlesubmit();
               }}
             >
               Add Land

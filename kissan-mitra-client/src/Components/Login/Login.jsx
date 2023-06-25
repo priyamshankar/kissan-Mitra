@@ -36,8 +36,8 @@ const Login = () => {
   const setCookie = (c) => {
     const jwt = c.jwt;
     const id = c.id;
-    cookies.set("jwt", jwt);
-    cookies.set("id", id);
+    cookies.set("jwt", jwt,{ expires: 365 });
+    cookies.set("id", id,{ expires: 365 });
     navigate("/");
   };
 
@@ -58,24 +58,24 @@ const Login = () => {
     });
   };
 
-  //temp
-  const temp = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/api/authcheck", {
-        jwt: cookies.get("jwt"),
-        id: cookies.get("id"),
-      })
-      .then((res) => {
-        console.log(res.data);
-        const data = res.data;
-        if (data.loginMatched) {
-          setCookie(data);
-        } else {
-          wrongCredAction();
-        }
-      });
-  };
+  // //temp
+  // const temp = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post("http://localhost:5000/api/authcheck", {
+  //       jwt: cookies.get("jwt"),
+  //       id: cookies.get("id"),
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       const data = res.data;
+  //       if (data.loginMatched) {
+  //         setCookie(data);
+  //       } else {
+  //         wrongCredAction();
+  //       }
+  //     });
+  // };
 
   return (
     <div className="Loginpage-container">

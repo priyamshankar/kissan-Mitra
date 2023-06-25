@@ -4,6 +4,7 @@ import Login from "./Components/Login/Login";
 import ZameenInfo from "./Components/ZameenInfo/ZameenInfo";
 import Signup from "./Components/Signup/Signup";
 import AddLand from "./Components/AddNewLand/AddLand";
+import Logout from "./Components/Login/Logout";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/zameenInfo" element={<ZameenInfo/>}></Route>
           <Route path="/signup" element={<Signup/>} />
           <Route path="/newland" element={<AddLand/>}/>
+          <Route path="logout" element={<Logout/>}/>
         </Routes>
       </BrowserRouter>
     </>
