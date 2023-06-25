@@ -36,8 +36,8 @@ const Login = () => {
   const setCookie = (c) => {
     const jwt = c.jwt;
     const id = c.id;
-    cookies.set("jwt", jwt);
-    cookies.set("id", id);
+    cookies.set("jwt", jwt,{ expires: 365 });
+    cookies.set("id", id,{ expires: 365 });
     navigate("/");
   };
 

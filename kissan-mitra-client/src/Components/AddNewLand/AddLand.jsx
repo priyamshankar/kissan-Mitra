@@ -17,7 +17,6 @@ const AddLand = () => {
   useEffect(() => {
     if (map && markerLoc) {
       map.panTo(markerLoc);
-      // console.log(setZ)
       // map.setZoom(13);
     }
   }, [onPlaceChanged]);
@@ -46,11 +45,9 @@ const AddLand = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY,
     libraries,
   });
-  // const [formData,setFormData] = useState({
-  //   firstName : '',
-  //   lastName : '',
-
-  // })
+  const [formData,setFormData] = useState({
+    
+  })
 
   if (!isLoaded) {
     return "Map is Loading";
@@ -91,6 +88,12 @@ const AddLand = () => {
   //     });
   // }
 
+
+
+  const handlechange = (e)=>{
+    setFormData({...formData,[e.target.name]:[e.target.value]})
+  }
+
   return (
     <div className="addLand">
       <div className="addLandForm">
@@ -107,6 +110,8 @@ const AddLand = () => {
               id="fieldName-addland"
               type="text"
               placeholder="Enter the name of the Field"
+              name="fieldName"
+              onChange={handlechange}
             />
           </div>
           <div>
@@ -115,6 +120,8 @@ const AddLand = () => {
               type="number"
               id="area-addland"
               placeholder="Enter the area"
+              onChange={handlechange}
+              name="landArea"
             />
           </div>
           <div>
