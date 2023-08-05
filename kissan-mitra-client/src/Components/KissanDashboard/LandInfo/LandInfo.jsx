@@ -1,9 +1,33 @@
 import './LandInfo.css'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LandCard from './LandCard/LandCard'
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import Auth from '../../../functinos/Auth';
 
 export default function LandInfo() {
 
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        
+        const fetch = async () => {
+            try {
+                const x = await Auth();
+                // console.log(x);
+                if(!x){
+                    navigate("/login");
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetch();
+    }, []);
+    
+    const params = useParams();
+    const [landData, setLandData] = useState([]);
 
     // making some psuedo land
     const psuedoLand = [
@@ -39,7 +63,15 @@ export default function LandInfo() {
         }
     ]
 
+    const fetchLandDetails=async () =>{
+        const fetchedData = await axios.post("http://localhost:5000/api/userlanddata",{id:Cookies.get("id")});
+        setLandData(fetchedData.data);
+    }
 
+    useEffect(() => {
+      fetchLandDetails();
+    }, [])
+    
 
 
     return (
@@ -52,15 +84,25 @@ export default function LandInfo() {
 
                 <div id='cards-container'>
 
-                    {
-                        psuedoLand.map((data, index) => {
+                    {landData ?<>
+                        {
+                        landData.map((data,index) => {
                             return(
-                                <LandCard 
-                                    data = {data}
-                                    key = {index}
-                                />
+                                <div key={index}>
+
+                                    <LandCard 
+                                        data = {data}
+                                        key = {data._id}
+                                        />
+                                </div>
                             )
                         })
+                    }</>:<>
+                    <h1>
+                        No land Registered under your name. <br /> Please click on the button below to add land.
+                    </h1>
+                    </>
+                        
                     }
 
                 </div>
