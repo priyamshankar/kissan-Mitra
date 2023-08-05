@@ -1,9 +1,12 @@
 import './LandCard.css'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function LandCard(props) {
+
+    const navigate = useNavigate();
 
     const [address, setAddress] = useState("");
 
@@ -35,10 +38,12 @@ export default function LandCard(props) {
     
     }, [])
     
-
+    function handleClick(){
+        navigate(`/zameenInfo/${_id}`);
+    }
     return (
         <>
-            <div className="land-card-body">
+            <div className="land-card-body" onClick={handleClick}>
                 <div id='card-heading'>
                     <h2>{fieldName}</h2>
                 </div>

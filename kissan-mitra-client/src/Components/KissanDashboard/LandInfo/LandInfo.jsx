@@ -3,8 +3,29 @@ import React, { useEffect, useState } from 'react'
 import LandCard from './LandCard/LandCard'
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import Auth from '../../../functinos/Auth';
 
 export default function LandInfo() {
+
+    const params = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+
+        const fetch = async () => {
+          try {
+            const x = await Auth();
+            // console.log(x);
+            if(!x){
+              navigate("/login");
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        };
+        fetch();
+      }, []);
 
     const [landData, setLandData] = useState([]);
 
