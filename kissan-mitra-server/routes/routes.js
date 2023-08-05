@@ -148,4 +148,22 @@ router.post("/api/addcrop",async(req,res)=>{
   }
 })
 
+router.post("/api/",async(req,res)=>{
+  try{
+    const dataFromDb = await cropDetail.findOne({land_id:req.body.id});
+    res.send(dataFromDb);
+  }catch(e){
+    console.log(e);
+  }
+})
+
+router.post("/api/allcropdata",async(req,res)=>{
+  try{
+    const dataFromDb = await cropDetail.find({user_id:req.body.id});
+    res.send(dataFromDb);
+  }catch(e){
+    console.log(e);
+  }
+})
+
 module.exports = router;

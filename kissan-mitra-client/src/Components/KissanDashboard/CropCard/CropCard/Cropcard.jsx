@@ -1,29 +1,8 @@
+import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import CropPage from "../CropPage/CropPage";
 import "./Cropcard.css";
-
-const cropData = [
-  {
-    cropType: "rice",
-    landName: "alphaLand",
-    fieldSize: 1.5,
-  },
-  {
-    cropType: "pulse",
-    landName: "betaLand",
-    fieldSize: 0.3,
-  },
-  {
-    cropType: "rice",
-    landName: "zetaLand",
-    fieldSize: 2,
-  },
-  {
-    cropType: "sunflower",
-    landName: "fleetaland",
-    fieldSize: 0.5,
-  },
-];
 
 const Cropcard = () => {
   const [crppagePopup, setcrppagePopup] = useState(null);
@@ -47,26 +26,19 @@ const Cropcard = () => {
     },
   ]);
 
-  // useEffect(() => {
-  //   cropData.map((data) => {
-  //     if (data.cropType === "rice") {
-  //       return setlandArea(
-  //         landArea.map((area, i) => {
-  //           if (area.cropType === "rice") {
-  //             area.val += data.fieldSize;
-  //           }
-  //         })
-  //       );
-  //   setlandArea[0].val += data.fieldSize;
-  // } else if (data.cropType === "sunflower") {
-  //   setlandArea[1].val += data.fieldSize;
-  // } else if (data.cropType === "pulse") {
-  //   landArea[2].val += data.fieldSize;
-  // } else if (data.cropType === "wheat") {
-  //   landArea[3].val += data.fieldSize;
-  // }
-  // });
-  // }, []);
+  
+
+  const [allCropData,setAllCropData] = useState([]);
+
+  const fetchallsimilarCropData = async ()=>{
+    const fetchedData = await axios.post("http://localhost:5000/api/allcropdata",{id:Cookies.get("id")});
+    setAllCropData(fetchedData.data);
+  }
+
+  useEffect(()=>{
+    fetchallsimilarCropData();
+  },[])
+
 
   return (
     <>
