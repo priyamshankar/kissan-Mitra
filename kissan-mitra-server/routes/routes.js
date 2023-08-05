@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require("../Databases/dbConnect");
 const userDetail = require("../Databases/kissanDetail");
 const landDetail = require("../Databases/landDetail");
+const cropDetail = require("../Databases/cropDetails");
 const bcrypt = require("bcryptjs");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
@@ -111,8 +112,37 @@ router.post("/api/addland",async(req,res)=>{
 router.post("/api/userlanddata",async(req,res)=>{
   try{
     const dataFromDb = await landDetail.find({user_id:req.body.id});
-    console.log(dataFromDb)
+    // console.log(dataFromDb)
     res.send(dataFromDb);
+  }catch(e){
+    console.log(e);
+  }
+})
+
+router.post("/api/landdata",async(req,res)=>{
+  try{
+    const dataFromDb = await landDetail.findOne({_id:req.body.id});
+    // console.log(dataFromDb)
+    res.send(dataFromDb);
+  }catch(e){
+    console.log(e);
+  }
+})
+
+router.post("/api/cropdata",async(req,res)=>{
+  try{
+    const dataFromDb = await cropDetail.findOne({land_id:req.body.id});
+    res.send(dataFromDb);
+  }catch(e){
+    console.log(e);
+  }
+})
+
+router.post("/api/addcrop",async(req,res)=>{
+  try{
+    const addData = req.body;
+    const addedData =  new cropDetail(addData);
+    await addedData.save();
   }catch(e){
     console.log(e);
   }

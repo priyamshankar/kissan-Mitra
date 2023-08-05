@@ -8,25 +8,25 @@ import Auth from '../../../functinos/Auth';
 
 export default function LandInfo() {
 
-    const params = useParams();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
-
+        
         const fetch = async () => {
-          try {
-            const x = await Auth();
-            // console.log(x);
-            if(!x){
-              navigate("/login");
+            try {
+                const x = await Auth();
+                // console.log(x);
+                if(!x){
+                    navigate("/login");
+                }
+            } catch (e) {
+                console.log(e);
             }
-          } catch (e) {
-            console.log(e);
-          }
         };
         fetch();
-      }, []);
-
+    }, []);
+    
+    const params = useParams();
     const [landData, setLandData] = useState([]);
 
     // making some psuedo land

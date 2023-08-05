@@ -4,23 +4,28 @@ const mongoose = require("mongoose");
 const cropDetailSchema = new mongoose.Schema({
     user_id: String,
     land_id: String,
-    cropName: string,
+    cropName: String,
     fertiliser:{
-        type: String,
+        typeofProd: String,
         date:Date,
+        // date:String,
     },
     pesticide:{
-        type: String,
+        typeofProd: String,
+        // date:String,
         date:Date,
     },
     water:{
-        type: String,
+        typeofProd: String,
         date:Date,
+        // date:String,
+
     },
     cropstate:[
         {
-            state:string,
+            state:String,
             date: Date,
+            // date:String,
         },
 
     ],    
