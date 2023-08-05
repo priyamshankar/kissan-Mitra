@@ -107,13 +107,15 @@ router.post("/api/addland",async(req,res)=>{
   }
 })
 
-router.post("/api/test", async (req, res) => {
-  try {
-    console.log(req.body);
-    res.send("data recieved successfully");
-  } catch (e) {
+
+router.post("/api/userlanddata",async(req,res)=>{
+  try{
+    const dataFromDb = await landDetail.find({user_id:req.body.id});
+    console.log(dataFromDb)
+    res.send(dataFromDb);
+  }catch(e){
     console.log(e);
   }
-});
+})
 
 module.exports = router;
