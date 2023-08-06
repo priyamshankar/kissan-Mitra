@@ -13,18 +13,28 @@ export default function ZameenInfo() {
   const [plantDate, setPlantDate] = useState("2023-08-18");
 
   const fetchLandDetails = async () => {
-    const fetchedData = await axios.post("http://localhost:5000/api/landdata", {
-      id: params.zameenid,
-    });
-    setLandData(fetchedData.data);
-    // console.log(Date())
+    try{
+
+      const fetchedData = await axios.post("http://localhost:5000/api/landdata", {
+        id: params.zameenid,
+      });
+      setLandData(fetchedData.data);
+      // console.log(Date())
+    }catch(e){
+      console.log(e);
+    }
   };
 
   const fetchCropDetails = async () => {
-    const fetchData = await axios.post("http://localhost:5000/api/cropdata", {
-      id: params.zameenid,
-    });
-    setCropData(fetchData.data);
+    try{
+
+      const fetchData = await axios.post("http://localhost:5000/api/cropdata", {
+        id: params.zameenid,
+      });
+      setCropData(fetchData.data);
+    }catch(e){
+      console.log(e);
+    }
   };
 
   const handleOptions = (e) => {
@@ -38,14 +48,16 @@ export default function ZameenInfo() {
 
   const handleSubmitCrop = async (e) => {
     // preventDefault(e);
-    await axios.post("http://localhost:5000/api/addcrop", {
-      user_id: Cookies.get("id"),
-      land_id: params.zameenid,
-      land_name:landData.fieldName,
-      land_area:landData.landArea,
-      cropName: selectedOption,
-      fertiliser: {
-        typeofProd: "",
+    try{
+
+      await axios.post("http://localhost:5000/api/addcrop", {
+        user_id: Cookies.get("id"),
+        land_id: params.zameenid,
+        land_name:landData.fieldName,
+        land_area:landData.landArea,
+        cropName: selectedOption,
+        fertiliser: {
+          typeofProd: "",
         date: null,
       },
       pesticide: {
@@ -63,13 +75,24 @@ export default function ZameenInfo() {
         },
       ],
     });
+  }catch(e){
+    console.log(e);
+  }
   };
-
+  
   useEffect(() => {
     fetchLandDetails();
     fetchCropDetails();
   }, [handleSubmitCrop]);
 
+  async function handleDeleteCrop(){
+    try{
+      
+      await axios.post(`http://localhost:5000/api/deletecrop`,{id:params.zameenid})
+    }catch(e){
+      console.log(e);
+    }
+  }
 
   return (
     <>
@@ -126,6 +149,8 @@ export default function ZameenInfo() {
               </div>
             </div>
           </div>
+      <button onClick={handleDeleteCrop}>Delete crop</button>
+
         </>
       ) : (
         <div className="addCropContainer">

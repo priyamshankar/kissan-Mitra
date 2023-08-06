@@ -166,4 +166,12 @@ router.post("/api/allcropdata",async(req,res)=>{
   }
 })
 
+router.post("/api/deletecrop",async(req,res)=>{
+  try{
+    await cropDetail.deleteOne({land_id:req.body.id});  
+  }catch(e){
+    console.log(e);
+  }
+})
+
 module.exports = router;

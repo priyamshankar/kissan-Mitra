@@ -5,14 +5,13 @@ import CropPage from "../CropPage/CropPage";
 import "./Cropcard.css";
 
 const Cropcard = () => {
-  const [crppagePopup, setcrppagePopup] = useState(null);
+  const [crppagePopup, setcrppagePopup] = useState();
 
-  const [landArea, setlandArea] = useState();
+  const [landArea, setlandArea] = useState(null);
 
   
 
   const [allCropData,setAllCropData] = useState([]);
-  const [combinedCropArea,setcombinedCropArea] = useState();
 
   const fetchallsimilarCropData = async ()=>{
     const fetchedData = await axios.post("http://localhost:5000/api/allcropdata",{id:Cookies.get("id")});
@@ -35,9 +34,8 @@ const Cropcard = () => {
           tempData[ele.cropName]+=ele.land_area;
         }
       })
-      console.log(tempData);
-      setcombinedCropArea(tempData);
-      setlandArea(tempData)
+      if(Object.keys(tempData).length !== 0)
+        {setlandArea(tempData)}
 
     }
   }
