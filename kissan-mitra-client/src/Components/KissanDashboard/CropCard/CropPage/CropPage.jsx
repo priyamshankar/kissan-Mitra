@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./CropPage.css";
 
 const CropPage = (props) => {
@@ -12,6 +12,15 @@ const CropPage = (props) => {
       waterneededBesideRainfall: "500litres",
     };
   });
+  const [CropData, setCropData] = useState([])
+  const allcropDataFilter = ()=>{
+    const filteredData = props.allCropData.filter((data) => data.cropName === props.crppagePopup.data);
+    setCropData(filteredData);
+  }
+
+  useEffect(()=>{
+    allcropDataFilter();
+  },[])
 
   return (
     <>
@@ -29,19 +38,19 @@ const CropPage = (props) => {
             <div>Total Estimated MSP : {"Rs20000"}</div>
           </div>
         </div>
-        {/* <div className="croppage-cropstatus"></div> */}
+  
         <div className="croppagecardcontainer">
-          {cropDesc.map((data, index) => {
+          {CropData.map((data, index) => {
             return (
-              <div className="cropPageCard" key={data.id}>
+              <div className="cropPageCard" key={data._id}>
 
                 <div className="croppagecard-row1">
-                  <span>{data.fieldName}</span>
+                  <span>{data.land_name}</span>
                   <div className="circle">
-                    {data.area}
+                    {data.land_area} Acres
                   </div>
                 </div>
-                Water Needed <br />
+                Water Needed -  <br />
                 msrp <br />
                 stage <br />
                 storm alert <br />

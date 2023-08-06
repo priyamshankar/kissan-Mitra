@@ -52,6 +52,7 @@ const Cropcard = () => {
         <CropPage
           setcrppagePopup={setcrppagePopup}
           crppagePopup={crppagePopup}
+          allCropData={allCropData}
         />
       )}
       <div className="cropCard-container">
