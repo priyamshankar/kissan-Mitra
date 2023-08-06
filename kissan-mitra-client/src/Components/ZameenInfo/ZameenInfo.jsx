@@ -41,6 +41,8 @@ export default function ZameenInfo() {
     await axios.post("http://localhost:5000/api/addcrop", {
       user_id: Cookies.get("id"),
       land_id: params.zameenid,
+      land_name:landData.fieldName,
+      land_area:landData.landArea,
       cropName: selectedOption,
       fertiliser: {
         typeofProd: "",

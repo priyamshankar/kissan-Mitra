@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cropDetailSchema = new mongoose.Schema({
     user_id: String,
     land_id: String,
+    land_name:String,
+    land_area:Number,
     cropName: String,
     fertiliser:{
         typeofProd: String,

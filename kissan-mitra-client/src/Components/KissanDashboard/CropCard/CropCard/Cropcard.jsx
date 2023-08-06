@@ -7,28 +7,12 @@ import "./Cropcard.css";
 const Cropcard = () => {
   const [crppagePopup, setcrppagePopup] = useState(null);
 
-  const [landArea, setlandArea] = useState([
-    {
-      cropType: "rice",
-      val: 2.5,
-    },
-    {
-      cropType: "sunflower",
-      val: 3.4,
-    },
-    {
-      cropType: "pulse",
-      val: 1,
-    },
-    {
-      cropType: "wheat",
-      val: 3,
-    },
-  ]);
+  const [landArea, setlandArea] = useState();
 
   
 
   const [allCropData,setAllCropData] = useState([]);
+  const [combinedCropArea,setcombinedCropArea] = useState();
 
   const fetchallsimilarCropData = async ()=>{
     const fetchedData = await axios.post("http://localhost:5000/api/allcropdata",{id:Cookies.get("id")});
@@ -37,8 +21,30 @@ const Cropcard = () => {
 
   useEffect(()=>{
     fetchallsimilarCropData();
-  },[])
+  },[]);
 
+  
+  const divideCrops = ()=>{
+    if(allCropData){
+      var tempData = {};
+      allCropData.forEach((ele)=>{
+        if(tempData[ele.cropName]===null || tempData[ele.cropName]===undefined){
+          // console.log(ele);
+          tempData[ele.cropName] = ele.land_area;
+        }else{
+          tempData[ele.cropName]+=ele.land_area;
+        }
+      })
+      console.log(tempData);
+      setcombinedCropArea(tempData);
+      setlandArea(tempData)
+
+    }
+  }
+  
+  useEffect(()=>{
+    divideCrops();
+  },[allCropData])
 
   return (
     <>
@@ -52,22 +58,23 @@ const Cropcard = () => {
         <div className="headingcropcard">
           <div>Cropwise Yield</div>
         </div>
-        <div className="cropcard-details-container">
-          {landArea.map((data, index) => {
+        <div className="cropcard-details-container">{landArea?<>
+          {Object.keys(landArea).map((data, index) => {
             return (
               <div
                 className="cropcard-details"
                 onClick={() => {
-                  setcrppagePopup(data.cropType);
+                  setcrppagePopup({"data":data,"area":landArea[data]});
                 }}
                 key={index}
               >
-                <div className="cropname-corpcard">{data.cropType}</div>
-                <div className="totalarea-cropcard">{data.val} Acres</div>
+                <div className="cropname-corpcard">{data}</div>
+                <div className="totalarea-cropcard">{landArea[data]} Acres</div>
                 <div className="circle"></div>
               </div>
             );
-          })}
+          })}</>:<><h1> No crop Found! Please go to any land and add crop! </h1>
+          </>}
         </div>
       </div>
     </>

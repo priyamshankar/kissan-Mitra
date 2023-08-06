@@ -23,9 +23,9 @@ const CropPage = (props) => {
       ></div>
       <div className="croppage-container">
         <div className="croppage-heading-container">
-          <div className="croppage-heading">Fields with {props.crppagePopup}</div>
+          <div className="croppage-heading">Fields with {props.crppagePopup.data}</div>
           <div className="misc-info">
-            <div>Total Land Area : {"3.5 Acres"}</div>
+            <div>Total Land Area : {props.crppagePopup.area} Acres</div>
             <div>Total Estimated MSP : {"Rs20000"}</div>
           </div>
         </div>
